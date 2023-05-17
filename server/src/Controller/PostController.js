@@ -66,3 +66,24 @@ export const deletePost = async(request, response) => {
         response.status(500).json();
     }
 }
+
+// Like/dislike a post
+export const likePost = async(request, response) => {
+    try {
+        const id = request.params.id;
+        const {userId} = request.body;
+
+        const post = await PostModel.findById(id);
+        if(!post.likes.includes(userId)) {
+            await post.updateOne({$push: {likes: userId}});
+            response.status(200).json("Post Liked!");
+        }
+        else {
+            await post.updateOne({$pull: {likes: userId}});
+            response.status(200).json("Post Unliked!");
+        }
+    } catch (error) {
+        console.log(error);
+        response.status(500).json();
+    }
+}
