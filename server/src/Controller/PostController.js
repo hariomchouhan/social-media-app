@@ -17,7 +17,7 @@ export const createPost = async(request, response) => {
 // Get a Post
 export const getPost = async(request, response) => {
     try {
-        const id = request.params.id;
+        const  id = request.params.id;
 
         const post = await PostModel.findById(id);
         response.status(200).json( post === null ? "Not available" : post);
