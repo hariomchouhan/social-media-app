@@ -4,11 +4,18 @@ import bcrypt from 'bcrypt';
 // Registering a new User
 export const registerUser = async (request, response) => {
   try {
-    const newPassword = await bcrypt.hashSync(request.body.password, 12);
-    request.body["password"] = newPassword;
-    const user = new UserModel(request.body);
-    const savedUser = await user.save();
-    response.status(200).json(savedUser);
+    const userName = request.body.username;
+    const exist = await UserModel.findOne({ username: userName});
+    if(exist){
+        response.status(404).json({message: "Enter unique username!"});
+    }
+    else{
+        const newPassword = await bcrypt.hashSync(request.body.password, 12);
+        request.body["password"] = newPassword;
+        const user = new UserModel(request.body);
+        const savedUser = await user.save();
+        response.status(200).json(savedUser);
+    }
   } catch (error) {
     response.status(500).json({ message: error.message });
   }
