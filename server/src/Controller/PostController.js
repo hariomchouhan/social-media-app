@@ -8,7 +8,7 @@ export const createPost = async (request, response) => {
     const newPost = await PostModel(request.body);
 
     await newPost.save();
-    response.status(200).json("Post successfully created!");
+    response.status(200).json(newPost);
   } catch (error) {
     console.log(error);
     response.status(500).json();
@@ -36,8 +36,8 @@ export const updatePost = async (request, response) => {
 
     const post = await PostModel.findById(postId);
     if (post.userId === userId) {
-      await post.updateOne({ $set: request.body });
-      response.status(200).json("Post successfully updated!");
+      const updatePost = await post.updateOne({ $set: request.body });
+      response.status(200).json("Post successfully updated!", updatePost);
     } else {
       response.status(403).json("Action forbidden");
     }

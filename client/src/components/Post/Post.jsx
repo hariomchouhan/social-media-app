@@ -19,7 +19,7 @@ export default function Post({data}) {
       <span style={{color: 'var(--gray)', fontSize: '12px'}}>{data.likes} likes</span>
 
       <div className="detail">
-        <span><b>{data.name}</b></span>
+        <span><b>{data.name + " "}</b></span>
         <span>{data.desc}</span>
       </div>
     </div>

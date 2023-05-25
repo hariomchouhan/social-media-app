@@ -39,7 +39,7 @@ export default function ProfileCard() {
         </div>
         <hr />
       </div>
-      {ProfilePage ? "" : <span>My Profile</span>}
+      {ProfilePage ? "" : <span>My Profile</span> }
     </div>
   );
 }
