@@ -10,6 +10,10 @@ import UploadRoute from "./src/Router/UploadRoute.js";
 
 const app = express();
 
+// to server images for public
+app.use(express.static('public'))
+app.use('/images', express.static("images"))
+
 app.use(cors());
 app.use(express.json());
 app.use("/auth", AuthRoute);
